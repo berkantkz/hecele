@@ -3,39 +3,40 @@
   <title>hecele | berkantkz</title>
   <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
-<body onload="hecele('kuyruksallayangiller')" style="height: 100%; margin: 0; padding: 0;">
-<div style="padding: 1%;">
-	<input id="giris" placeholder="sözcüğü buraya girin" onkeyup="hecele(this.value)"></input>
+<body onload="hecele('kuyruksallayangiller')" style="height: 100%; margin: 0; padding: 0; display: flex; flex-direction: column; text-align: center;">
+<div style="padding: 7em 1% 1% 1%; flex: 1 0 auto;">
+	<input id="giris" placeholder="sözcüğü buraya girin" type="text" onkeyup="hecele(this.value)" style="height: 3em; padding: 1%; width: 25em;"></input>
 	<p id="sozcuk"></p>
-	<p id="sozcukUzunlugu"></p>
+	<p id="harfSayisi"></p>
 	<p id="unluSayisi"></p>
 	<p id="unsuzSayisi"></p>
 	<p id="heceli"></p>
 </div>
-<p style="position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); font-style: italic;">#berkantkz</p>
+<p style="font-style: italic;">#berkantkz | <a href="https://github.com/berkantkz/hecele/">Kaynak</a></p>
 <script>
   var unluler = ["a", "e", "ı", "i", "o", "ö", "u", "ü"];
   var unsuzler = ["b", "c", "ç", "d", "f", "g", "ğ", "h", "j", "k", "l", "m", "n", "p", "r", "s", "ş", "t", "v", "y", "z"];
 
-  function hecele(giris) {
+  function hecele(giris) {	
     var sozcuk = (giris == "" ? "kuyruksallayangiller": giris);
 
-    console.log("Sözcük: " + sozcuk);
     $('#sozcuk').text("Sözcük: " + sozcuk);
 
-    var sozcukUzunlugu = sozcuk.length;
+    var harfSayisi = sozcuk.length;
     var deger = 0;
 
+	var sayac = sozcuk;
     var unluSayisi = 0;
     var unsuzSayisi = 0;
 
-    for (deger; deger <= sozcukUzunlugu; deger++) {
+    for (deger; deger <= harfSayisi; deger++) {
+	  sayac = sayac.replace('-','');
 
-      if (unluler.includes(sozcuk.charAt(deger))) {
+      if (unluler.includes(sayac.charAt(deger))) {
         unluSayisi++;
       }
 
-      if (unsuzler.includes(sozcuk.charAt(deger))) {
+      if (unsuzler.includes(sayac.charAt(deger))) {
         unsuzSayisi++;
       }
 
@@ -53,17 +54,10 @@
 
     }
 
-    $('#sozcukUzunlugu').text("Sözcük uzunluğu: " + sozcukUzunlugu);
+    $('#harfSayisi').text("Harf sayısı: " + harfSayisi);
     $('#unluSayisi').text("Ünlü sayısı: " + unluSayisi);
     $('#unsuzSayisi').text("Ünsüz sayısı: " + unsuzSayisi);
     $('#heceli').text("Heceli: " + sozcuk);
-
-    /*
-		console.log("Sözcük uzunluğu: " + (sozcukUzunlugu));
-		console.log("Ünlü sayısı: " + unluSayisi);
-		console.log("Ünsüz sayısı: " + unsuzSayisi);
-		console.log("Heceli: " + sozcuk);
-	*/
   }
 
   // https://gist.github.com/efenacigiray/9367920
